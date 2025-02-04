@@ -3,12 +3,46 @@ export type WordBlock = {
     state: boolean
 }
 
-export function convertTableToCols(table : WordBlock[][]) : WordBlock[][] {
+export const convertTableToCols = (table : WordBlock[][]) : WordBlock[][]  =>{
     
     const transposed = table[0].map((_, colIndex) =>
         table.map(row => row[colIndex])
     );
-    console.log(transposed);
-    
     return transposed;
+}
+
+/**
+ * Check if the Bingo table horizontally, vertically or diagonally is solved
+ */
+export const checkTableSolve = (table : WordBlock[][]) : boolean =>{
+    const isSolvedVertically = solveVertically(table)
+    const isSolvedHorizontally = solveHorizontally(table)
+    const isSolvedDiagonally = solveDiagonally(table)
+    return isSolvedDiagonally || isSolvedVertically
+}
+
+/**
+ * Check if the Bingo table is solved from top to bottom
+ */
+export const solveVertically = (table : WordBlock[][]): boolean =>{
+    return table.every(row => row[0].state === true);
+}
+
+/**
+ * Check if the Bingo table is solved from left to right
+ */
+export const solveHorizontally = (table : WordBlock[][]): boolean =>{
+    table.forEach(row => {
+       if(!row.every(e => e.state === true)){
+        return false
+       }
+    });
+    return true;
+}
+
+/**
+ * Check if the Bingo table is solved from top-left -> bot-right or top-right -> left - bottom
+ */
+export const solveDiagonally = (table : WordBlock[][]): boolean =>{
+    return false;
 }
