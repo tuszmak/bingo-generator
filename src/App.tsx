@@ -1,11 +1,11 @@
 import './App.css'
-import { Button } from './components/ui/button'
+import Homepage from './Homepage/Homepage'
 
 function App() {
 
   return (
-   <div>
-    <Button>Content</Button>
+   <div className='flex justify-center items-center h-screen dark:bg-slate-600'>
+    <Homepage />
    </div>
   )
 }
