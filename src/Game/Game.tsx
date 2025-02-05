@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { BoardContext } from "./Contexts";
 import Table from "./Table";
@@ -15,11 +16,15 @@ export default function Game() {
 )
 
   return (
-    <div className="flex flex-col gap-8 justify-center items-center h-screen text-white ">
-      <h1 className="text-4xl">ENGINEER GAMING</h1>
-      <BoardContext.Provider value={words}>
-      <Table key="table" words={words}></Table>
-      </BoardContext.Provider>
-    </div>
+    <div className="h-screen text-white dark dark:bg-slate-500">
+    <div>
+      <a href="/"><Button>Back</Button></a>
+      </div>
+      <div className="flex flex-col gap-8 justify-center items-center ">
+        <h1 className="text-4xl">ENGINEER GAMING</h1>
+        <BoardContext.Provider value={words}>
+        <Table key="table" words={words}></Table>
+        </BoardContext.Provider>
+      </div></div>
   )
 }
