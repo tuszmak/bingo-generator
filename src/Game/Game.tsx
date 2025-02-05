@@ -15,7 +15,8 @@ export default function Game() {
 )
 
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex flex-col gap-8 justify-center items-center h-screen text-white ">
+      <h1 className="text-4xl">ENGINEER GAMING</h1>
       <BoardContext.Provider value={words}>
       <Table key="table" words={words}></Table>
       </BoardContext.Provider>

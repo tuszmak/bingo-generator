@@ -4,7 +4,7 @@ import { WordBlock } from "./utils";
 export default function Table({words}: { words :  WordBlock[][]}) {  
   
   return (
-    <div className="flex-col" key='table'>
+    <div className="flex-col bg-radial-gradient" key='table'>
       {words.map((row : WordBlock[], i) => (
         <div 
         className="flex" 
