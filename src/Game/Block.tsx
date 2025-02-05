@@ -11,7 +11,7 @@ export default function Block({word, rowNum, colNum} : {word: WordBlock, rowNum:
     console.log(words);
     
     setIsClicked(!isClicked)
-    if(checkTableSolve(words)){
+    if(checkTableSolve(words, rowNum, colNum)){
       alert("yippee")
     }
   }
