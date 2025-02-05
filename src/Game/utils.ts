@@ -24,8 +24,11 @@ export const checkTableSolve = (table : WordBlock[][], rowNum : number, colNum :
 /**
  * Check if the Bingo table is solved from top to bottom
  */
-export const solveVertically = (table : WordBlock[][], rowNum : number, colNum : number): boolean =>{
-    return table.every(row => row[0].isClicked === true);
+export const solveVertically = (table : WordBlock[][], colNum : number): boolean =>{    
+    for (let index = 0; index < table.length; index++) {        
+        if(table[index][colNum].isClicked === false) return false;
+    }
+    return true;
 }
 
 /**
