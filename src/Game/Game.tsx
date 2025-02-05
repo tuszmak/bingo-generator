@@ -1,20 +1,24 @@
 import { useState } from "react";
+import { BoardContext } from "./Contexts";
 import Table from "./Table";
 import { WordBlock } from "./utils";
 
+
 export default function Game() {
   const [words] = useState<WordBlock[][]>( [
-    [{ word: 'banana', state: false }, { word: 'xylophone', state: false }, { word: 'zebra', state: false }, { word: 'yacht', state: false }, { word: 'tiger', state: false }],
-    [{ word: 'volcano', state: false }, { word: 'tiger', state: false }, { word: 'yacht', state: false }, { word: 'ocean', state: false }, { word: 'quasar', state: false }],
-    [{ word: 'volcano', state: false }, { word: 'dog', state: false }, { word: 'xylophone', state: false }, { word: 'banana', state: false }, { word: 'volcano', state: false }],
-    [{ word: 'waterfall', state: false }, { word: 'notebook', state: false }, { word: 'lemon', state: false }, { word: 'waterfall', state: false }, { word: 'yacht', state: false }],
-    [{ word: 'cherry', state: false }, { word: 'umbrella', state: false }, { word: 'elephant', state: false }, { word: 'forest', state: false }, { word: 'island', state: false }]
+    [{ word: 'banana', isClicked: false }, { word: 'xylophone', isClicked: false }, { word: 'zebra', isClicked: false }, { word: 'yacht', isClicked: false }, { word: 'tiger', isClicked: false }],
+    [{ word: 'volcano', isClicked: false }, { word: 'tiger', isClicked: false }, { word: 'yacht', isClicked: false }, { word: 'ocean', isClicked: false }, { word: 'quasar', isClicked: false }],
+    [{ word: 'volcano', isClicked: false }, { word: 'dog', isClicked: false }, { word: 'xylophone', isClicked: false }, { word: 'banana', isClicked: false }, { word: 'volcano', isClicked: false }],
+    [{ word: 'waterfall', isClicked: false }, { word: 'notebook', isClicked: false }, { word: 'lemon', isClicked: false }, { word: 'waterfall', isClicked: false }, { word: 'yacht', isClicked: false }],
+    [{ word: 'cherry', isClicked: false }, { word: 'umbrella', isClicked: false }, { word: 'elephant', isClicked: false }, { word: 'forest', isClicked: false }, { word: 'island', isClicked: false }]
 ]
 )
 
   return (
     <div className="flex justify-center items-center">
+      <BoardContext.Provider value={words}>
       <Table key="table" words={words}></Table>
+      </BoardContext.Provider>
     </div>
   )
 }

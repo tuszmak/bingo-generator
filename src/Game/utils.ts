@@ -1,6 +1,6 @@
 export type WordBlock = {
     word: string,
-    state: boolean
+    isClicked: boolean
 }
 
 export const convertTableToCols = (table : WordBlock[][]) : WordBlock[][]  =>{
@@ -14,30 +14,35 @@ export const convertTableToCols = (table : WordBlock[][]) : WordBlock[][]  =>{
 /**
  * Check if the Bingo table horizontally, vertically or diagonally is solved
  */
-export const checkTableSolve = (table : WordBlock[][]) : boolean =>{
+export const checkTableSolve = (table : WordBlock[][], rowNum : number, colNum : number) : boolean =>{
     const isSolvedVertically = solveVertically(table)
     const isSolvedHorizontally = solveHorizontally(table)
     const isSolvedDiagonally = solveDiagonally(table)
-    return isSolvedDiagonally || isSolvedVertically
+    return isSolvedHorizontally
 }
 
 /**
  * Check if the Bingo table is solved from top to bottom
  */
-export const solveVertically = (table : WordBlock[][]): boolean =>{
-    return table.every(row => row[0].state === true);
+export const solveVertically = (table : WordBlock[][], rowNum : number, colNum : number): boolean =>{
+    return table.every(row => row[0].isClicked === true);
 }
 
 /**
  * Check if the Bingo table is solved from left to right
  */
-export const solveHorizontally = (table : WordBlock[][]): boolean =>{
-    table.forEach(row => {
-       if(!row.every(e => e.state === true)){
-        return false
-       }
-    });
-    return true;
+export const solveHorizontally = (table : WordBlock[][], rowNum : number, colNum : number): boolean =>{
+    
+    //TODO Optimize: Leadjuk a sor és az oszlopszámot, és az alapján ellenőrzünk.
+    // Leadni propként vagy keresni a szövegre. Még id
+
+    for (let index = 0; index < table.length; index++) {
+        // console.log(table[index]);
+        
+        if(!table[index].every((e => e.isClicked === true)))
+        return false;
+    }
+    return true
 }
 
 /**
