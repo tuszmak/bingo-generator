@@ -5,7 +5,7 @@ export type WordBlock = {
 
 export const convertTableToCols = (table: WordBlock[][]): WordBlock[][] => {
   const transposed = table[0].map((_, colIndex) =>
-    table.map((row) => row[colIndex]),
+    table.map((row) => row[colIndex])
   );
   return transposed;
 };
@@ -16,7 +16,7 @@ export const convertTableToCols = (table: WordBlock[][]): WordBlock[][] => {
 export const checkTableSolve = (
   table: WordBlock[][],
   rowNum: number,
-  colNum: number,
+  colNum: number
 ): boolean => {
   const isSolvedVertically = solveVertically(table, colNum);
   const isSolvedHorizontally = solveHorizontally(table, rowNum);
@@ -29,7 +29,7 @@ export const checkTableSolve = (
  */
 export const solveVertically = (
   table: WordBlock[][],
-  colNum: number,
+  colNum: number
 ): boolean => {
   for (let index = 0; index < table.length; index++) {
     if (table[index][colNum].isClicked === false) return false;
@@ -42,7 +42,7 @@ export const solveVertically = (
  */
 export const solveHorizontally = (
   table: WordBlock[][],
-  rowNum: number,
+  rowNum: number
 ): boolean => {
   for (let index = 0; index < table.length; index++) {
     if (table[rowNum][index].isClicked === false) return false;
@@ -61,7 +61,7 @@ export const solveDiagonally = (table: WordBlock[][]): boolean => {
     secondDiag.push(table[index][table.length - 1 - index].isClicked);
   }
   return (
-    firstDiag.every((foo) => foo === true) ||
-    secondDiag.every((foo) => foo === true)
+    firstDiag.every((block) => block === true) ||
+    secondDiag.every((block) => block === true)
   );
 };

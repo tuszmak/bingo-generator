@@ -1,42 +1,41 @@
-import { useContext, useState } from 'react';
-import { BoardContext, WinContext } from './Contexts';
+import { useContext } from 'react';
+import { GameContext } from './Contexts';
 import { checkTableSolve, WordBlock } from './utils';
 
-const defaultClassList =
-  'w-24 h-24 flex justify-center items-center border border-white';
-
-export default function Block({
-  word,
-  rowNum,
-  colNum,
-}: {
+interface BlockProps {
   word: WordBlock;
   rowNum: number;
   colNum: number;
-}) {
-  const [isClicked, setIsClicked] = useState(false);
-  const [words, setWords] = useContext(BoardContext);
-  const setIsFinished = useContext(WinContext);
+}
+
+const defaultClassList =
+  'w-24 h-24 flex justify-center items-center border border-white ';
+
+export default function Block({ word, rowNum, colNum }: BlockProps) {
+  const { board, setBoard, setIsFinished } = useContext(GameContext);
 
   const handleClick = () => {
-    const wordsCopy = structuredClone(words);
+    const boardCopy = structuredClone(board);
+    boardCopy[rowNum][colNum].isClicked = !board[rowNum][colNum].isClicked;
 
-    wordsCopy[rowNum][colNum].isClicked = !words[rowNum][colNum].isClicked;
-    if (checkTableSolve(wordsCopy, rowNum, colNum)) {
+    if (checkTableSolve(boardCopy, rowNum, colNum)) {
       setIsFinished(true);
     }
-    setWords(wordsCopy);
-    setIsClicked(!isClicked);
+    setBoard(boardCopy);
   };
 
-  return isClicked ? (
-    <div
-      className={defaultClassList + ' opacity-50 border-'}
-      onClick={handleClick}
-    >
-      {word.word}
-    </div>
-  ) : (
+  if (word.isClicked) {
+    return (
+      <div
+        className={defaultClassList + 'backdrop-hue-rotate-30'}
+        onClick={handleClick}
+      >
+        {word.word}
+      </div>
+    );
+  }
+
+  return (
     <div className={defaultClassList} onClick={handleClick}>
       {word.word}
     </div>
