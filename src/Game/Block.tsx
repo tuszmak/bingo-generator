@@ -1,9 +1,9 @@
-import { useContext, useState } from "react";
-import { BoardContext, WinContext } from "./Contexts";
-import { checkTableSolve, WordBlock } from "./utils";
+import { useContext, useState } from 'react';
+import { BoardContext, WinContext } from './Contexts';
+import { checkTableSolve, WordBlock } from './utils';
 
 const defaultClassList =
-  "w-24 h-24 flex justify-center items-center border border-white";
+  'w-24 h-24 flex justify-center items-center border border-white';
 
 export default function Block({
   word,
@@ -31,7 +31,7 @@ export default function Block({
 
   return isClicked ? (
     <div
-      className={defaultClassList + " opacity-50 border-"}
+      className={defaultClassList + ' opacity-50 border-'}
       onClick={handleClick}
     >
       {word.word}
