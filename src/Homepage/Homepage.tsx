@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 export default function Homepage() {
   return (
     <div>
-        <div className="flex flex-col gap-9">
+        <div className="flex flex-col items-center gap-9">
         <h1 className="text-6xl">
             Bingo Generator
         </h1>
@@ -11,8 +11,6 @@ export default function Homepage() {
             The only bingo generator you'll ever need.
         </p>
         
-    </div>
-    <div className="mt-9">
       <a href="/game">
         <Button>Get Started</Button>
       </a>
