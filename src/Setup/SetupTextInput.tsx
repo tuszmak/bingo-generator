@@ -13,11 +13,9 @@ export const SetupTextInput = () => {
   const navigate = useNavigate();
 
   const wordArraySchema = z.object({
-    board: z.array(
-      z.string().min(width ** 2, {
-        message: `Your list of words is too small for a ${width} x ${width} table`,
-      })
-    ),
+    board: z.array(z.string()).min(width ** 2, {
+      message: `Your list of words is too small for a ${width} x ${width} table`,
+    }),
     width: z.number().positive({
       message: 'Table width must be greater than zero',
     }),
