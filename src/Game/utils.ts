@@ -65,3 +65,25 @@ export const solveDiagonally = (table: WordBlock[][]): boolean => {
     secondDiag.every((block) => block === true)
   );
 };
+
+export const generateShuffledBoard = (words: string[]) => {
+  const wordsCopy = [...words];
+  shuffleWords(wordsCopy);
+  return wordsCopy.map((word) => {
+    return { word, isClicked: false } satisfies WordBlock;
+  });
+};
+
+/**
+ *
+ * @param {string[]} words
+ * This is an array shuffle based on the Fisher–Yates shuffle algorithm.
+ */
+export const shuffleWords = (words: string[]) => {
+  for (let index = words.length - 1; index > 0; index--) {
+    const randomIndex = Math.floor(Math.random() * words.length - 1);
+    const temp = words[index];
+    words[index] = words[randomIndex];
+    words[randomIndex] = temp;
+  }
+};
