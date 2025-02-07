@@ -66,12 +66,20 @@ export const solveDiagonally = (table: WordBlock[][]): boolean => {
   );
 };
 
-export const generateShuffledBoard = (words: string[]) => {
-  const wordsCopy = [...words];
-  shuffleWords(wordsCopy);
-  return wordsCopy.map((word) => {
-    return { word, isClicked: false } satisfies WordBlock;
+export const generateShuffledBoard = (words: string[], width: number = 5) => {
+  const wordsCopy = shuffleWords(words);
+  const board: WordBlock[][] = [];
+
+  wordsCopy.forEach((word, i) => {
+    const wordBlock = { word, isClicked: false } satisfies WordBlock;
+    if (!board[i % width]) {
+      board[i % width] = [wordBlock];
+    } else {
+      board[i % width].push(wordBlock);
+    }
   });
+
+  return board;
 };
 
 /**
@@ -80,10 +88,12 @@ export const generateShuffledBoard = (words: string[]) => {
  * This is an array shuffle based on the Fisher–Yates shuffle algorithm.
  */
 export const shuffleWords = (words: string[]) => {
-  for (let index = words.length - 1; index > 0; index--) {
-    const randomIndex = Math.floor(Math.random() * words.length - 1);
-    const temp = words[index];
-    words[index] = words[randomIndex];
-    words[randomIndex] = temp;
+  const wordsCopy = [...words];
+  for (let index = wordsCopy.length - 1; index > 0; index--) {
+    const randomIndex = Math.floor(Math.random() * wordsCopy.length);
+    const temp = wordsCopy[index];
+    wordsCopy[index] = wordsCopy[randomIndex];
+    wordsCopy[randomIndex] = temp;
   }
+  return wordsCopy;
 };

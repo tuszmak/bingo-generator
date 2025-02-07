@@ -1,16 +1,19 @@
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { GameContext } from './Contexts';
-import { DEFAULT_BOARD } from './defaultBoard';
+import { DEFAULT_BOARD_STRING_ARRAY } from './defaultBoard';
 import Table from './Table';
-import { WordBlock } from './utils';
+import { generateShuffledBoard, WordBlock } from './utils';
 
 export default function Game() {
-  const [board, setBoard] = useState<WordBlock[][]>(DEFAULT_BOARD);
+  const [board, setBoard] = useState<WordBlock[][]>(
+    generateShuffledBoard(DEFAULT_BOARD_STRING_ARRAY)
+  );
   const [isFinished, setIsFinished] = useState(false);
 
   const resetBoard = () => {
-    setBoard(DEFAULT_BOARD);
+    const board = generateShuffledBoard(DEFAULT_BOARD_STRING_ARRAY);
+    setBoard(board);
     setIsFinished(false);
   };
 
@@ -27,6 +30,7 @@ export default function Game() {
           <div>
             <h1>Congrats, you won!</h1>
             <Button onClick={resetBoard}>Reset</Button>
+            <Button>Shuffle Board</Button>
           </div>
         )}
         <GameContext.Provider value={{ board, setBoard, setIsFinished }}>
