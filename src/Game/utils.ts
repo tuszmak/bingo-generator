@@ -4,6 +4,9 @@ export type WordBlock = {
 };
 
 export const convertTableToCols = (table: WordBlock[][]): WordBlock[][] => {
+  if (!table || !table[0]) {
+    return [];
+  }
   const transposed = table[0].map((_, colIndex) =>
     table.map((row) => row[colIndex])
   );
@@ -31,6 +34,10 @@ export const solveVertically = (
   table: WordBlock[][],
   colNum: number
 ): boolean => {
+  if (!table[0]) {
+    return false;
+  }
+
   for (let index = 0; index < table.length; index++) {
     if (table[index][colNum].isClicked === false) return false;
   }
@@ -44,6 +51,10 @@ export const solveHorizontally = (
   table: WordBlock[][],
   rowNum: number
 ): boolean => {
+  if (!table[0]) {
+    return false;
+  }
+
   for (let index = 0; index < table.length; index++) {
     if (table[rowNum][index].isClicked === false) return false;
   }
@@ -54,6 +65,10 @@ export const solveHorizontally = (
  * Check if the Bingo table is solved from top-left -> bot-right or top-right -> left - bottom
  */
 export const solveDiagonally = (table: WordBlock[][]): boolean => {
+  if (!table[0]) {
+    return false;
+  }
+
   const firstDiag = [];
   const secondDiag = [];
   for (let index = 0; index < table.length; index++) {
