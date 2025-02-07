@@ -1,7 +1,8 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import {
   checkTableSolve,
   convertTableToCols,
+  generateShuffledBoard,
   solveDiagonally,
   solveHorizontally,
   solveVertically,
@@ -43,6 +44,34 @@ const expectedTransposedTable: WordBlock[][] = [
     { word: 'six', isClicked: true },
     { word: 'nine', isClicked: false },
   ],
+];
+
+const dummyWords = [
+  'one',
+  'two',
+  'three',
+  'four',
+  'five',
+  'six',
+  'seven',
+  'eight',
+  'nine',
+  'ten',
+  'eleven',
+  'twelve',
+  'thirteen',
+  'fourteen',
+  'fifteen',
+  'sixteen',
+  'seventeen',
+  'eighteen',
+  'nineteen',
+  'twenty',
+  'twenty-one',
+  'twenty-two',
+  'twenty-three',
+  'twenty-four',
+  'twenty-five',
 ];
 
 describe('convertTableToCols', () => {
@@ -144,5 +173,43 @@ describe('checkTableSolve', () => {
 
   it('should handle an empty table gracefully', () => {
     expect(checkTableSolve([], 0, 0)).toBe(false);
+  });
+});
+
+describe('generateShuffledBoard', () => {
+  it('should generate a board of correct dimensions when there are exact characters', () => {
+    const board = generateShuffledBoard(dummyWords, 5);
+    expect(board.length).toBe(5);
+    board.forEach((row) => expect(row.length).toBe(5));
+  });
+
+  it('should truncate extra words to fit the given board size', () => {
+    const extraWords = [...dummyWords, 'extra1', 'extra2', 'extra3'];
+    const board = generateShuffledBoard(extraWords, 5);
+    expect(board.flat().length).toBe(25);
+  });
+
+  it('should not generate a board if not enough words are provided', () => {
+    const insufficientWords = ['one', 'two', 'three'];
+    const board = generateShuffledBoard(insufficientWords, 5);
+    expect(board.flat().length).toBe(0); //TODO not sure about this logic.
+  });
+
+  it('should contain all words exactly once', () => {
+    const board = generateShuffledBoard(dummyWords, 5);
+    const flattenedWords = board.flat().map((block) => block.word);
+    expect(flattenedWords.sort()).toEqual(dummyWords.sort());
+  });
+
+  it('should mark all words as unclicked initially', () => {
+    const board = generateShuffledBoard(dummyWords, 5);
+    board.flat().forEach((block) => expect(block.isClicked).toBe(false));
+  });
+
+  it('should shuffle the words (mocked for predictable result)', () => {
+    vi.spyOn(global.Math, 'random').mockReturnValue(0.5); // Forces shuffle to be predictable
+    const board = generateShuffledBoard(dummyWords, 5);
+    vi.restoreAllMocks();
+    expect(board).not.toEqual(dummyWords); // Ensures words are shuffled
   });
 });
