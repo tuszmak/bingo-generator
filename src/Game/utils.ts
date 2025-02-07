@@ -82,6 +82,8 @@ export const solveDiagonally = (table: WordBlock[][]): boolean => {
 };
 
 export const generateShuffledBoard = (words: string[], width: number = 5) => {
+  //TODO Make sure the board is exactly width^2.
+
   const wordsCopy = shuffleWords(words);
   const board: WordBlock[][] = [];
 

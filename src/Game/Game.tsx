@@ -6,10 +6,8 @@ import Table from './Table';
 import { generateShuffledBoard, WordBlock } from './utils';
 
 export default function Game() {
-  const [board, setBoard] = useState<WordBlock[][]>(
-    generateShuffledBoard(DEFAULT_BOARD_STRING_ARRAY)
-  );
   const [isFinished, setIsFinished] = useState(false);
+  const [board, setBoard] = useState<WordBlock[][]>(generateBoard());
 
   const resetBoard = () => {
     const board = generateShuffledBoard(DEFAULT_BOARD_STRING_ARRAY);
@@ -39,4 +37,21 @@ export default function Game() {
       </div>
     </div>
   );
+}
+
+function generateBoard() {
+  const userData = localStorage.getItem('userSpecs');
+  let userSpecs = null;
+  if (userData) {
+    userSpecs = JSON.parse(userData);
+  }
+  let currentBoard: WordBlock[][] = [];
+  console.log(userSpecs);
+
+  if (!userSpecs) {
+    currentBoard = generateShuffledBoard(DEFAULT_BOARD_STRING_ARRAY);
+  } else {
+    currentBoard = generateShuffledBoard(userSpecs.board, userSpecs.width);
+  }
+  return currentBoard;
 }

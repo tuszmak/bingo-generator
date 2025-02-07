@@ -9,7 +9,7 @@ export default function Homepage() {
           The only bingo generator you'll ever need.
         </p>
 
-        <a href='/game'>
+        <a href='/setup'>
           <Button>Get Started</Button>
         </a>
       </div>
