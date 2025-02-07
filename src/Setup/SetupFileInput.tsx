@@ -3,32 +3,56 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@radix-ui/react-label';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
+import { z, ZodError, ZodIssue } from 'zod';
 
 export const SetupFileInput = () => {
   const [fileInput, setFileInput] = useState<FileList | null>(null);
   const [width, setWidth] = useState(0);
+  const [errors, setErrors] = useState<ZodIssue[]>([]);
+
   const navigate = useNavigate();
 
-  const handleSubmit = () => {
+  const wordArraySchema = z.object({
+    board: z.array(z.string()).min(width ** 2, {
+      message: `Your list of words is too small for a ${width} x ${width} table`,
+    }),
+    width: z.number().positive({
+      message: 'Table width must be greater than zero',
+    }),
+  });
+
+  const handleSubmit = async (e: React.MouseEvent) => {
+    e.preventDefault();
+
     if (fileInput && fileInput.length > 0) {
-      const a = fileInput[0];
-      a.text().then((data) => {
-        const board = data.replace(/\s/g, '').split(',');
-        localStorage.setItem(
-          'userSpecs',
-          JSON.stringify({
-            board,
-            width,
-          })
-        );
-      });
+      try {
+        const fileText = fileInput[0];
+        const board = (await fileText.text()).replace(/\s/g, '').split(',');
+        console.log(board);
+
+        const data = { board, width };
+        wordArraySchema.parse(data);
+        localStorage.setItem('userSpecs', JSON.stringify(data));
+        navigate('/game');
+      } catch (error: unknown) {
+        if (error instanceof ZodError) {
+          console.log(error.issues);
+
+          setErrors(error.issues);
+        }
+      }
     }
-    navigate('/game');
   };
 
   return (
     <div>
       <form>
+        //TODO Valami segédlet a formatra
+        {errors.map((error, i) => (
+          <p key={i} className='text-red-500'>
+            {error.message}
+          </p>
+        ))}
         <Label htmlFor='text'>Words</Label>
         <Input
           onChange={(e) => {
@@ -46,7 +70,7 @@ export const SetupFileInput = () => {
           id='width'
           onChange={(e) => setWidth(parseInt(e.target.value))}
         />
-        <Button onClick={handleSubmit}>Submit</Button>
+        <Button onClick={(e) => handleSubmit(e)}>Submit</Button>
       </form>
     </div>
   );
