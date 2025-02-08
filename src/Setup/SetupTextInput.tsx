@@ -5,6 +5,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { z, ZodError, ZodIssue } from 'zod';
+import { SetupTooltip } from './SetupTooltip';
 
 export const SetupTextInput = () => {
   const [textInput, setTextInput] = useState('');
@@ -39,13 +40,16 @@ export const SetupTextInput = () => {
   return (
     <div>
       <form>
-        {/* //TODO Valami segédlet a formatra + preview */}
+        {/* //TODO preview */}
         {errors.map((error, i) => (
           <p key={i} className='text-red-500'>
             {error.message}
           </p>
         ))}
-        <Label htmlFor='text'>Words</Label>
+        <div className='flex gap-1 items-center'>
+          <Label htmlFor='text'>Words</Label>
+          <SetupTooltip />
+        </div>
         <Textarea
           id='text'
           defaultValue={textInput}

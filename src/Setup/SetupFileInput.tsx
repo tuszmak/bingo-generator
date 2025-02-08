@@ -4,6 +4,7 @@ import { Label } from '@radix-ui/react-label';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { z, ZodError, ZodIssue } from 'zod';
+import { SetupTooltip } from './SetupTooltip';
 
 export const SetupFileInput = () => {
   const [fileInput, setFileInput] = useState<FileList | null>(null);
@@ -28,8 +29,6 @@ export const SetupFileInput = () => {
       try {
         const fileText = fileInput[0];
         const board = (await fileText.text()).replace(/\s/g, '').split(',');
-        console.log(board);
-
         const data = { board, width };
         wordArraySchema.parse(data);
         localStorage.setItem('userSpecs', JSON.stringify(data));
@@ -47,13 +46,15 @@ export const SetupFileInput = () => {
   return (
     <div>
       <form>
-        //TODO Valami segédlet a formatra
         {errors.map((error, i) => (
           <p key={i} className='text-red-500'>
             {error.message}
           </p>
         ))}
-        <Label htmlFor='text'>Words</Label>
+        <div className='flex items-center gap-1'>
+          <Label htmlFor='text'>Words</Label>
+          <SetupTooltip />
+        </div>
         <Input
           onChange={(e) => {
             setFileInput(e.target.files);
