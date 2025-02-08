@@ -82,20 +82,26 @@ export const solveDiagonally = (table: WordBlock[][]): boolean => {
 };
 
 export const generateShuffledBoard = (words: string[], width: number = 5) => {
-  //TODO Make sure the board is exactly width^2.
-
   const wordsCopy = shuffleWords(words);
   const board: WordBlock[][] = [];
 
-  wordsCopy.forEach((word, i) => {
-    const wordBlock = { word, isClicked: false } satisfies WordBlock;
-    if (!board[i % width]) {
-      board[i % width] = [wordBlock];
-    } else {
-      board[i % width].push(wordBlock);
+  for (let i = 0; i < width; i++) {
+    for (let j = 0; j < width; j++) {
+      if (!board[i]) {
+        board[i] = [
+          {
+            word: wordsCopy[i * width + j],
+            isClicked: false,
+          },
+        ];
+      } else {
+        board[i].push({
+          word: wordsCopy[i * width + j],
+          isClicked: false,
+        });
+      }
     }
-  });
-
+  }
   return board;
 };
 
@@ -113,4 +119,10 @@ export const shuffleWords = (words: string[]) => {
     wordsCopy[randomIndex] = temp;
   }
   return wordsCopy;
+};
+
+export const resetBoard = (board: WordBlock[][]) => {
+  const newBoard = structuredClone(board);
+  newBoard.forEach((row) => row.forEach((block) => (block.isClicked = false)));
+  return newBoard;
 };
