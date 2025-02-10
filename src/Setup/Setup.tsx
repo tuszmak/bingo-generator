@@ -1,5 +1,5 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { SetupCsvInput } from './SetupCsvInput';
+import { SetupCodeInput } from './SetupCodeInput';
 import { SetupFileInput } from './SetupFileInput';
 import { SetupTextInput } from './SetupTextInput';
 
@@ -11,8 +11,8 @@ export default function Setup() {
           <TabsTrigger value='text' className='w-1/3'>
             Text
           </TabsTrigger>
-          <TabsTrigger value='csv' className='w-1/3'>
-            CSV
+          <TabsTrigger value='code' className='w-1/3'>
+            Code
           </TabsTrigger>
           <TabsTrigger value='file' className='w-1/3'>
             File
@@ -21,8 +21,8 @@ export default function Setup() {
         <TabsContent value='text'>
           <SetupTextInput />
         </TabsContent>
-        <TabsContent value='csv'>
-          <SetupCsvInput />
+        <TabsContent value='code'>
+          <SetupCodeInput />
         </TabsContent>
         <TabsContent value='file'>
           <SetupFileInput />
