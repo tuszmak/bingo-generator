@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import { useContext } from 'react';
 import { GameContext } from './Contexts';
 import { checkTableSolve, WordBlock } from './utils';
@@ -9,7 +10,7 @@ interface BlockProps {
 }
 
 const defaultClassList =
-  'w-24 h-24 flex justify-center items-center border border-white ';
+  'w-24 h-24 flex justify-center items-center border border-white break-all text-center p-2';
 
 export default function Block({ word, rowNum, colNum }: BlockProps) {
   const { board, setBoard, setIsFinished } = useContext(GameContext);
@@ -24,19 +25,14 @@ export default function Block({ word, rowNum, colNum }: BlockProps) {
     setBoard(boardCopy);
   };
 
-  if (word.isClicked) {
-    return (
-      <div
-        className={defaultClassList + 'backdrop-hue-rotate-30'}
-        onClick={handleClick}
-      >
-        {word.word}
-      </div>
-    );
-  }
-
   return (
-    <div className={defaultClassList} onClick={handleClick}>
+    <div
+      className={cn(
+        defaultClassList,
+        word.isClicked && 'backdrop-hue-rotate-30'
+      )}
+      onClick={handleClick}
+    >
       {word.word}
     </div>
   );

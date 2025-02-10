@@ -1,3 +1,6 @@
+import { NavigateFunction } from 'react-router';
+import { wordArraySchemaFactory } from './types';
+
 export type WordBlock = {
   word: string;
   isClicked: boolean;
@@ -126,3 +129,12 @@ export const resetBoard = (board: WordBlock[][]) => {
   newBoard.forEach((row) => row.forEach((block) => (block.isClicked = false)));
   return newBoard;
 };
+
+export const convertStringToTableFactory =
+  (navigate: NavigateFunction) => (text: string, width: number) => {
+    const board = text.includes('\n') ? text.split('\n') : text.split(',');
+    const data = { board, width };
+    wordArraySchemaFactory(width).parse(data);
+    localStorage.setItem('userSpecs', JSON.stringify(data));
+    navigate('/game');
+  };

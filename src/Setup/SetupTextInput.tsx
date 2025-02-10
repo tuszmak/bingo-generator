@@ -12,9 +12,10 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { convertStringToTableFactory } from '@/Game/utils';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
-import { z, ZodError, ZodIssue } from 'zod';
+import { ZodError, ZodIssue } from 'zod';
 import { SetupTooltip } from './SetupTooltip';
 
 export const SetupTextInput = () => {
@@ -24,23 +25,11 @@ export const SetupTextInput = () => {
   const [openDialog, setOpenDialog] = useState(false);
 
   const navigate = useNavigate();
-
-  const wordArraySchema = z.object({
-    board: z.array(z.string()).min(width ** 2, {
-      message: `Your list of words is too small for a ${width} x ${width} table`,
-    }),
-    width: z.number().positive({
-      message: 'Table width must be greater than zero',
-    }),
-  });
+  const convertStringToTable = convertStringToTableFactory(navigate);
 
   const handleSubmit = (e: React.MouseEvent) => {
     try {
-      const board = textInput.replace(/\s/g, '').split(',');
-      const data = { board, width };
-      wordArraySchema.parse(data);
-      localStorage.setItem('userSpecs', JSON.stringify(data));
-      navigate('/game');
+      convertStringToTable(textInput, width);
     } catch (error: unknown) {
       if (error instanceof ZodError) {
         e.preventDefault();
