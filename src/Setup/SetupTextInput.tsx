@@ -1,4 +1,14 @@
 import { Button } from '@/components/ui/button';
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
@@ -11,6 +21,8 @@ export const SetupTextInput = () => {
   const [textInput, setTextInput] = useState('');
   const [width, setWidth] = useState(0);
   const [errors, setErrors] = useState<ZodIssue[]>([]);
+  const [openDialog, setOpenDialog] = useState(false);
+
   const navigate = useNavigate();
 
   const wordArraySchema = z.object({
@@ -33,6 +45,7 @@ export const SetupTextInput = () => {
       if (error instanceof ZodError) {
         e.preventDefault();
         setErrors(error.issues);
+        setOpenDialog(false);
       }
     }
   };
@@ -63,13 +76,31 @@ export const SetupTextInput = () => {
           id='width'
           onChange={(e) => setWidth(parseInt(e.target.value))}
         />
-        <Button
-          onClick={(e) => {
-            handleSubmit(e);
-          }}
-        >
-          Submit
-        </Button>
+        <Dialog open={openDialog} onOpenChange={setOpenDialog}>
+          <DialogTrigger asChild>
+            <Button>Submit</Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Are you sure?</DialogTitle>
+              <DialogDescription>
+                Are you satisfied with these keywords?
+              </DialogDescription>
+            </DialogHeader>
+            <DialogFooter>
+              <DialogClose asChild>
+                <Button type='button' onClick={(e) => handleSubmit(e)}>
+                  Yes
+                </Button>
+              </DialogClose>
+              <DialogClose asChild>
+                <Button type='button' variant='secondary'>
+                  No
+                </Button>
+              </DialogClose>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </form>
     </div>
   );
