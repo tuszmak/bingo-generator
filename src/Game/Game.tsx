@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { GameContext } from './Contexts';
 import { DEFAULT_BOARD_STRING_ARRAY } from './defaultBoard';
 import Table from './Table';
+import { BaseTable } from './types';
 import { generateShuffledBoard, resetBoard, WordBlock } from './utils';
 
 export default function Game() {
@@ -47,17 +48,16 @@ export default function Game() {
 
 function generateBoard() {
   const userData = localStorage.getItem('userSpecs');
-  let userSpecs = null;
+  let userSpecs: BaseTable | null = null;
   if (userData) {
     userSpecs = JSON.parse(userData);
   }
   let currentBoard: WordBlock[][] = [];
-  console.log(userSpecs);
 
   if (!userSpecs) {
     currentBoard = generateShuffledBoard(DEFAULT_BOARD_STRING_ARRAY);
   } else {
-    currentBoard = generateShuffledBoard(userSpecs.board, userSpecs.width);
+    currentBoard = generateShuffledBoard(userSpecs.words, userSpecs.width);
   }
   return currentBoard;
 }

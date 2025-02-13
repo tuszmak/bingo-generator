@@ -11,3 +11,8 @@ export const wordArraySchemaFactory = (width: number) =>
       message: 'Table width must be greater than zero',
     }),
   });
+
+export interface BaseTable {
+  words: string[];
+  width: number;
+}

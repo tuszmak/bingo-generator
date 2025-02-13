@@ -1,21 +1,36 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { DEFAULT_BOARD_STRING_ARRAY } from '@/Game/defaultBoard';
+import { BaseTable } from '@/Game/types';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
+interface BoardResponse {
+  id: number;
+  code: string;
+  name: string;
+  content: string;
+}
+
 export const SetupCodeInput = () => {
   const [code, setCode] = useState('');
+  const [width, setWidth] = useState(0);
+
   const navigate = useNavigate();
 
-  const handleSubmit = () => {
+  const handleSubmit = async (e: React.MouseEvent) => {
     if (code) {
-      localStorage.setItem(
-        'userSpecs',
-        JSON.stringify(DEFAULT_BOARD_STRING_ARRAY)
-      );
-      navigate('/game');
+      e.preventDefault();
+      const response = await fetch(`/api/table/${code}`);
+      const board: BoardResponse = await response.json();
+      if (board.name) {
+        localStorage.setItem('foo', board.content);
+        const words = board.content.split(',');
+        const boardPayload: BaseTable = { words, width };
+
+        localStorage.setItem('userSpecs', JSON.stringify(boardPayload));
+        navigate('/game');
+      }
     }
   };
   return (
@@ -29,7 +44,15 @@ export const SetupCodeInput = () => {
           defaultValue={code}
           onChange={(e) => setCode(e.target.value)}
         />
-        <Button onClick={handleSubmit}>Submit</Button>
+        <Label htmlFor='width'>Width/Height</Label>
+        <Input
+          min={1}
+          type='number'
+          required
+          id='width'
+          onChange={(e) => setWidth(parseInt(e.target.value))}
+        />
+        <Button onClick={(e) => handleSubmit(e)}>Submit</Button>
       </form>
     </div>
   );
