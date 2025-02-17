@@ -57,7 +57,7 @@ function generateBoard() {
   if (!userSpecs) {
     currentBoard = generateShuffledBoard(DEFAULT_BOARD_STRING_ARRAY);
   } else {
-    currentBoard = generateShuffledBoard(userSpecs.words, userSpecs.width);
+    currentBoard = generateShuffledBoard(userSpecs.board, userSpecs.width);
   }
   return currentBoard;
 }

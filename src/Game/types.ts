@@ -13,6 +13,6 @@ export const wordArraySchemaFactory = (width: number) =>
   });
 
 export interface BaseTable {
-  words: string[];
+  board: string[];
   width: number;
 }
