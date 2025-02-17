@@ -26,7 +26,7 @@ export const SetupCodeInput = () => {
       if (board.name) {
         localStorage.setItem('foo', board.content);
         const words = board.content.split(',');
-        const boardPayload: BaseTable = { words, width };
+        const boardPayload: BaseTable = { board: words, width };
 
         localStorage.setItem('userSpecs', JSON.stringify(boardPayload));
         navigate('/game');
