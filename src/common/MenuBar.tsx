@@ -3,7 +3,7 @@ import { Menubar } from '@/components/ui/menubar';
 
 export default function MenuBar() {
   return (
-    <Menubar className='flex justify-center'>
+    <Menubar className='flex justify-center sticky top-0'>
       <div className='flex gap-6 left-0 absolute'>
         <a href='/'>
           <Button>Home</Button>
