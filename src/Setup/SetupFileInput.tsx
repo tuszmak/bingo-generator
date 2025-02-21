@@ -10,8 +10,8 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { convertStringToTableFactory } from '@/Game/utils';
-import { Label } from '@radix-ui/react-label';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { ZodError, ZodIssue } from 'zod';
