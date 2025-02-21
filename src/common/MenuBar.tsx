@@ -11,6 +11,9 @@ export default function MenuBar() {
         <a href='/setup'>
           <Button>Setup</Button>
         </a>
+        <a href='/packs'>
+          <Button>Packs</Button>
+        </a>
       </div>
       <h1 className='text-xl block 1/2'>Bingo Generator</h1>
       <div></div>
