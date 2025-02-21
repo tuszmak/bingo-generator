@@ -15,6 +15,7 @@ export const SetupTooltip = () => {
               src='src/assets/tooltip_question_mark.svg'
               width={20}
               height={20}
+              onClick={(e) => e.preventDefault()}
             />
           </TooltipTrigger>
           <TooltipContent>

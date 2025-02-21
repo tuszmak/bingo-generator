@@ -1,10 +1,14 @@
 import './App.css';
+import MenuBar from './common/MenuBar';
 import Homepage from './Homepage/Homepage';
 
 function App() {
   return (
-    <div className='flex justify-center items-center h-screen'>
-      <Homepage />
+    <div>
+      <MenuBar />
+      <div className='flex justify-center items-center h-screen'>
+        <Homepage />
+      </div>
     </div>
   );
 }
