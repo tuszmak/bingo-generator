@@ -12,9 +12,21 @@ interface BoardResponse {
   content: string;
 }
 
+const getErrorMessage = (statusCode: number): string => {
+  switch (statusCode) {
+    case 500:
+      return 'Something failed in the server.';
+    case 404:
+      return "This code doesn't have a table!";
+    default:
+      return '';
+  }
+};
+
 export const SetupCodeInput = () => {
   const [code, setCode] = useState('');
   const [width, setWidth] = useState(0);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const navigate = useNavigate();
 
@@ -22,20 +34,28 @@ export const SetupCodeInput = () => {
     if (code) {
       e.preventDefault();
       const response = await fetch(`/api/table/${code}`);
-      const board: BoardResponse = await response.json();
-      if (board.name) {
-        localStorage.setItem('foo', board.content);
-        const words = board.content.split(',');
-        const boardPayload: BaseTable = { board: words, width };
+      console.log(response);
 
-        localStorage.setItem('userSpecs', JSON.stringify(boardPayload));
-        navigate('/game');
+      const errorMessage = getErrorMessage(response.status);
+      setErrorMessage(errorMessage);
+
+      if (!errorMessage) {
+        const board: BoardResponse = await response.json();
+        if (board.name) {
+          localStorage.setItem('foo', board.content);
+          const words = board.content.split(',');
+          const boardPayload: BaseTable = { board: words, width };
+
+          localStorage.setItem('userSpecs', JSON.stringify(boardPayload));
+          navigate('/game');
+        }
       }
     }
   };
   return (
     <div>
-      <form>
+      <form className='flex gap-3 flex-col'>
+        {errorMessage && <p className='text-red-500'>{errorMessage}</p>}
         <Label htmlFor='code'>Insert code</Label>
         <Input
           type='text'

@@ -45,7 +45,7 @@ export const SetupFileInput = () => {
 
   return (
     <div>
-      <form>
+      <form className='flex gap-3 flex-col'>
         {errors.map((error, i) => (
           <p key={i} className='text-red-500'>
             {error.message}
