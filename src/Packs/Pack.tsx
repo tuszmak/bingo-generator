@@ -10,11 +10,13 @@ import { Input } from '@/components/ui/input';
 import { convertStringToTableFactory } from '@/Game/utils';
 import { MouseEvent, useState } from 'react';
 import { useNavigate } from 'react-router';
+import LikeButton from './LikeButton';
 import { PackContent } from './types';
 
 export default function Pack({ pack }: { pack: PackContent }) {
   const { code, content, name } = pack;
   const [width, setWidth] = useState(1);
+  const [likeCount, setLikeCount] = useState(0);
 
   const navigate = useNavigate();
   const convertStringToTable = convertStringToTableFactory(navigate);
@@ -30,10 +32,17 @@ export default function Pack({ pack }: { pack: PackContent }) {
         return `${wordCount} words`;
     }
   };
-  function handlePick(event: MouseEvent): void {
+
+  const handlePick = (event: MouseEvent): void => {
     event.preventDefault();
     convertStringToTable(content, width);
-  }
+  };
+
+  const handleLike = (packLikeState: boolean): void => {
+    if (packLikeState) {
+      setLikeCount(likeCount + 1);
+    } else setLikeCount(likeCount - 1);
+  };
 
   return (
     <div>
@@ -51,8 +60,8 @@ export default function Pack({ pack }: { pack: PackContent }) {
               onChange={(e) => setWidth(parseInt(e.target.value))}
               defaultValue={1}
             />
-
-            <div className='grid w-full justify-items-end gap-4 font-semibold'>
+            <div className='flex w-full justify-between gap-4 font-semibold mt-4'>
+              <LikeButton likeCount={likeCount} likeCountChange={handleLike} />
               {getWordCountText()}
             </div>
           </form>
