@@ -21,7 +21,7 @@ export default function Packs() {
     <div>
       <MenuBar />
       <h1 className='flex justify-center text-3xl m-4'>Select a pack</h1>
-      <div className='flex'>
+      <div className='flex gap-10 flex-wrap justify-center'>
         {packs.length === 0 && <div>There's no packs available</div>}
         {packs.map((pack) => (
           <Pack pack={pack} key={pack.id} />
