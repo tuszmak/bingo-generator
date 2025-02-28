@@ -2,37 +2,78 @@ import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { convertStringToTableFactory } from '@/Game/utils';
+import { MouseEvent, useState } from 'react';
+import { useNavigate } from 'react-router';
+import { PackContent } from './types';
 
-export default function Pack() {
+export default function Pack({ pack }: { pack: PackContent }) {
+  const { code, content, name } = pack;
+  const [width, setWidth] = useState(1);
+
+  const navigate = useNavigate();
+  const convertStringToTable = convertStringToTableFactory(navigate);
+  const wordCount = content.split(',').length;
+
+  const getWordCountText = () => {
+    switch (wordCount) {
+      case 0:
+        return 'No words';
+      case 1:
+        return '1 word';
+      default:
+        return `${wordCount} words`;
+    }
+  };
+  function handlePick(event: MouseEvent): void {
+    event.preventDefault();
+    convertStringToTable(content, width);
+  }
+
   return (
     <div>
       <Card className='w-[350px]'>
         <CardHeader>
-          <CardTitle>Create project</CardTitle>
-          <CardDescription>
-            Deploy your new project in one-click.
-          </CardDescription>
+          <CardTitle>{name}</CardTitle>
         </CardHeader>
         <CardContent>
           <form>
-            <div className='grid w-full items-center gap-4'>
-              <div className='flex flex-col space-y-1.5'>
-                <Label htmlFor='name'>Name</Label>
-                <Input id='name' placeholder='Name of your project' />
-              </div>
+            <label htmlFor='width'>Width: </label>
+            <Input
+              type='number'
+              name='width'
+              max={Math.floor(Math.sqrt(wordCount))}
+              onChange={(e) => setWidth(parseInt(e.target.value))}
+              defaultValue={1}
+            />
+
+            <div className='grid w-full justify-items-end gap-4 font-semibold'>
+              {getWordCountText()}
             </div>
           </form>
         </CardContent>
         <CardFooter className='flex justify-between'>
-          <Button variant='outline'>Cancel</Button>
-          <Button>Deploy</Button>
+          <Button
+            variant='outline'
+            onClick={() => {
+              navigator.clipboard.writeText(code);
+            }}
+          >
+            Copy code
+          </Button>
+          <Button
+            variant='default'
+            onClick={(e) => {
+              handlePick(e);
+            }}
+          >
+            Pick
+          </Button>
         </CardFooter>
       </Card>
     </div>

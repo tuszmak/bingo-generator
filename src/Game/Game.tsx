@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
 import { GameContext } from './Contexts';
 import { DEFAULT_BOARD_STRING_ARRAY } from './defaultBoard';
 import Table from './Table';
@@ -9,6 +10,7 @@ import { generateShuffledBoard, resetBoard, WordBlock } from './utils';
 export default function Game() {
   const [isFinished, setIsFinished] = useState(false);
   const [board, setBoard] = useState<WordBlock[][]>(generateBoard());
+  const navigate = useNavigate();
 
   const resetCurrentBoard = () => {
     const newBoard = resetBoard(board);
@@ -25,9 +27,7 @@ export default function Game() {
   return (
     <div className='h-screen text-white dark dark:bg-slate-500'>
       <div>
-        <a href='/'>
-          <Button>Back</Button>
-        </a>
+        <Button onClick={() => navigate(-1)}>Back</Button>
       </div>
       <div className='flex flex-col gap-8 justify-center items-center'>
         <h1 className='text-4xl'>ENGINEER GAMING</h1>
