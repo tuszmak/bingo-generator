@@ -1,3 +1,4 @@
+import LikeHeartFilled from '@/logos/LikeHeartFilled';
 import { useState } from 'react';
 
 interface LikeButtonProps {
@@ -17,13 +18,20 @@ export default function LikeButton({
   };
 
   return (
-    <div className='flex gap-2'>
-      <img
-        src='src/assets/like_heart.svg'
-        width={20}
-        height={20}
-        onClick={handleClick}
-      ></img>
+    <div className='flex gap-2 items-center'>
+      {isLiked && (
+        <div onClick={handleClick}>
+          <LikeHeartFilled fill='red' key='likeHeart' />
+        </div>
+      )}
+      {!isLiked && (
+        <img
+          src='src/assets/like_heart.svg'
+          width={20}
+          height={20}
+          onClick={handleClick}
+        ></img>
+      )}
       {likeCount}
     </div>
   );
