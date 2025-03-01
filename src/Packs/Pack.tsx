@@ -16,7 +16,7 @@ import { PackContent } from './types';
 export default function Pack({ pack }: { pack: PackContent }) {
   const { code, content, name } = pack;
   const [width, setWidth] = useState(1);
-  const [likeCount, setLikeCount] = useState(0);
+  const [likeCount, setLikeCount] = useState(pack.likeCount ?? 0);
 
   const navigate = useNavigate();
   const convertStringToTable = convertStringToTableFactory(navigate);
