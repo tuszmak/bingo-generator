@@ -7,6 +7,7 @@ import Game from './Game/Game.tsx';
 import './index.css';
 import Notfound from './Notfound/NotFound.tsx';
 import Packs from './Packs/Packs.tsx';
+import Profile from './Profile/Profile.tsx';
 import Setup from './Setup/Setup.tsx';
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
@@ -20,6 +21,7 @@ createRoot(document.getElementById('root')!).render(
           <Route path='/' element={<App />} />
           <Route path='/setup' element={<Setup />} />
           <Route path='/packs' element={<Packs />} />
+          <Route path='/profile' element={<Profile />} />
           <Route path='/game' element={<Game />} />
         </Routes>
       </ClerkProvider>

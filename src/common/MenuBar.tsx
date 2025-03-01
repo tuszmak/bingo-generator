@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Menubar } from '@/components/ui/menubar';
+import { SignedOut, SignInButton, UserButton } from '@clerk/react-router';
 
 export default function MenuBar() {
   return (
@@ -16,7 +17,14 @@ export default function MenuBar() {
         </a>
       </div>
       <h1 className='text-xl block 1/2'>Bingo Generator</h1>
-      <div></div>
+      <div className='right-7 absolute'>
+        <SignedOut>
+          <SignInButton mode='modal'>
+            <Button>Sign in</Button>
+          </SignInButton>
+        </SignedOut>
+        <UserButton userProfileUrl='/profile' />
+      </div>
     </Menubar>
   );
 }
