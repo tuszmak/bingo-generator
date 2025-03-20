@@ -1,10 +1,12 @@
 import MenuBar from '@/common/MenuBar';
+import { useUser } from '@clerk/react-router';
 import { useEffect, useState } from 'react';
 import Pack from './Pack';
 import { PackContent } from './types';
 
 export default function Packs() {
   const [packs, setPacks] = useState<PackContent[]>([]);
+  const { isLoaded, isSignedIn, user } = useUser();
   const getData = async () => {
     const response = await fetch('/api/v1/table');
     if (response.ok) {
@@ -15,7 +17,8 @@ export default function Packs() {
 
   useEffect(() => {
     getData();
-  }, []);
+    console.log(user?.primaryEmailAddress?.emailAddress);
+  }, [user]);
 
   return (
     <div>
