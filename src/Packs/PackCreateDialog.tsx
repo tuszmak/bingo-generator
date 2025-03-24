@@ -18,16 +18,9 @@ import { NewPack } from './types';
 
 export default function PackCreateDialog({ label }: { label: string }) {
   const createPack = async () => {
-    const submitUser =
-      user?.username ?? user?.primaryEmailAddress?.emailAddress ?? 'Anonymous';
     const response = await fetch('/api/v1/table', {
       method: 'post',
-      body: JSON.stringify({
-        name: packName,
-        content: wordsInput,
-        submittedBy: submitUser,
-        likes: [],
-      } satisfies NewPack),
+      body: JSON.stringify(buildNewPack()),
       headers: { 'content-type': 'application/json' },
     });
     if (response.ok) {
@@ -36,8 +29,20 @@ export default function PackCreateDialog({ label }: { label: string }) {
     }
   };
 
+  const buildNewPack = (): NewPack => {
+    const submitUser =
+      user?.username ?? user?.primaryEmailAddress?.emailAddress ?? 'Anonymous';
+
+    return {
+      name: packName ?? 'Your pack!',
+      content: wordsInput,
+      submittedBy: submitUser,
+      likes: [],
+    };
+  };
+
   const { user } = useUser();
-  const [packName, setPackName] = useState('');
+  const [packName, setPackName] = useState('Your pack!');
   const [wordsInput, setWordsInput] = useState('');
   const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -46,7 +51,7 @@ export default function PackCreateDialog({ label }: { label: string }) {
       <DialogTrigger asChild>
         <a className='text-slate-600'> {label} </a>
       </DialogTrigger>
-      <form>
+      <form onSubmit={createPack}>
         <DialogContent className='sm:max-w-[425px]'>
           <DialogHeader>
             <DialogTitle>Edit profile</DialogTitle>
@@ -63,6 +68,8 @@ export default function PackCreateDialog({ label }: { label: string }) {
                 id='name'
                 className='col-span-3'
                 value={packName}
+                required
+                name='name'
                 onChange={(e) => setPackName(e.target.value)}
               />
             </div>
@@ -76,12 +83,13 @@ export default function PackCreateDialog({ label }: { label: string }) {
                 id='words'
                 className='col-span-3'
                 value={wordsInput}
+                name='words'
                 onChange={(e) => setWordsInput(e.target.value)}
               />
             </div>
           </div>
           <DialogFooter>
-            <Button type='button' onClick={createPack}>
+            <Button type='submit' onClick={createPack}>
               Create pack
             </Button>
           </DialogFooter>
