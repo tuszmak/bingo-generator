@@ -18,15 +18,15 @@ export default function Packs() {
 
   useEffect(() => {
     getData();
-    console.log(user?.primaryEmailAddress?.emailAddress);
   }, [user]);
 
   return (
     <div>
       <MenuBar />
       <div className='flex justify-center w-full '>
-        <div className=' text-3xl m-4'>
-          Select or <PackCreateDialog label='create' />a pack
+        <div className=' text-3xl m-4 flex gap-1'>
+          <p>Select or </p> <PackCreateDialog label='create' />
+          <p>a pack</p>
         </div>
       </div>
       <div className='flex gap-10 flex-wrap justify-center'>
