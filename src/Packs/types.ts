@@ -7,3 +7,10 @@ export interface PackContent {
   createdBy?: string;
   likeCount?: number;
 }
+
+export interface NewPack {
+  name: string;
+  content: string;
+  submittedBy: string;
+  likes: string[];
+}
