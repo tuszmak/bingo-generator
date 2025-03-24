@@ -57,6 +57,7 @@ export default function Pack({ pack }: { pack: PackContent }) {
               type='number'
               name='width'
               max={Math.floor(Math.sqrt(wordCount))}
+              min={1}
               onChange={(e) => setWidth(parseInt(e.target.value))}
               defaultValue={1}
             />
