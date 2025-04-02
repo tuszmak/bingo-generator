@@ -25,7 +25,6 @@ export default function Packs() {
         setUser(data);
       }
     }
-    console.log(user);
   };
 
   useEffect(() => {

@@ -59,11 +59,7 @@ export default function Pack({ pack, user }: PackProps) {
   };
 
   useEffect(() => {
-    console.log('user');
     if (user) {
-      console.log(pack.id);
-      console.log(user.packIds);
-
       setIsLikedByUser(user.packIds.includes(pack.id));
     }
   }, [user, pack.id]);
