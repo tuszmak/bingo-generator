@@ -8,6 +8,7 @@ import {
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { convertStringToTableFactory } from '@/Game/utils';
+import { useUser } from '@clerk/react-router';
 import { MouseEvent, useState } from 'react';
 import { useNavigate } from 'react-router';
 import LikeButton from './LikeButton';
@@ -17,6 +18,7 @@ export default function Pack({ pack }: { pack: PackContent }) {
   const { code, content, name } = pack;
   const [width, setWidth] = useState(1);
   const [likeCount, setLikeCount] = useState(pack.likeCount ?? 0);
+  const { user } = useUser();
 
   const navigate = useNavigate();
   const convertStringToTable = convertStringToTableFactory(navigate);
@@ -38,7 +40,15 @@ export default function Pack({ pack }: { pack: PackContent }) {
     convertStringToTable(content, width);
   };
 
-  const handleLike = (packLikeState: boolean): void => {
+  const handleLike = async (packLikeState: boolean): Promise<void> => {
+    await fetch('/api/v1/table/like', {
+      method: 'post',
+      body: JSON.stringify({
+        userId: user!.id,
+        packId: pack.id,
+        state: packLikeState,
+      }),
+    });
     if (packLikeState) {
       setLikeCount(likeCount + 1);
     } else setLikeCount(likeCount - 1);

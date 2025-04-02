@@ -30,13 +30,10 @@ export default function PackCreateDialog({ label }: { label: string }) {
   };
 
   const buildNewPack = (): NewPack => {
-    const submitUser =
-      user?.username ?? user?.primaryEmailAddress?.emailAddress ?? 'Anonymous';
-
     return {
       name: packName ?? 'Your pack!',
       content: wordsInput,
-      submittedBy: submitUser,
+      uploadedByUserId: user!.id,
       likes: [],
     };
   };
