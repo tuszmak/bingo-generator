@@ -11,6 +11,11 @@ export interface PackContent {
 export interface NewPack {
   name: string;
   content: string;
-  submittedBy: string;
+  uploadedByUserId: string;
   likes: string[];
+}
+
+export interface User {
+  userId: string;
+  packIds: number[];
 }

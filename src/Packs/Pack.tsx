@@ -8,15 +8,21 @@ import {
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { convertStringToTableFactory } from '@/Game/utils';
-import { MouseEvent, useState } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import LikeButton from './LikeButton';
-import { PackContent } from './types';
+import { PackContent, User } from './types';
 
-export default function Pack({ pack }: { pack: PackContent }) {
+interface PackProps {
+  pack: PackContent;
+  user: User | undefined;
+}
+
+export default function Pack({ pack, user }: PackProps) {
   const { code, content, name } = pack;
   const [width, setWidth] = useState(1);
   const [likeCount, setLikeCount] = useState(pack.likeCount ?? 0);
+  const [isLikedByUser, setIsLikedByUser] = useState(false);
 
   const navigate = useNavigate();
   const convertStringToTable = convertStringToTableFactory(navigate);
@@ -38,11 +44,25 @@ export default function Pack({ pack }: { pack: PackContent }) {
     convertStringToTable(content, width);
   };
 
-  const handleLike = (packLikeState: boolean): void => {
+  const handleLike = async (packLikeState: boolean): Promise<void> => {
+    await fetch('/api/v1/table/like', {
+      method: 'post',
+      body: JSON.stringify({
+        userId: user?.userId,
+        packId: pack.id,
+        state: packLikeState,
+      }),
+    });
     if (packLikeState) {
       setLikeCount(likeCount + 1);
     } else setLikeCount(likeCount - 1);
   };
+
+  useEffect(() => {
+    if (user) {
+      setIsLikedByUser(user.packIds.includes(pack.id));
+    }
+  }, [user, pack.id]);
 
   return (
     <div>
@@ -62,7 +82,11 @@ export default function Pack({ pack }: { pack: PackContent }) {
               defaultValue={1}
             />
             <div className='flex w-full justify-between gap-4 font-semibold mt-4'>
-              <LikeButton likeCount={likeCount} likeCountChange={handleLike} />
+              <LikeButton
+                likeCount={likeCount}
+                isLikedByUser={isLikedByUser}
+                likeCountChange={handleLike}
+              />
               {getWordCountText()}
             </div>
           </form>

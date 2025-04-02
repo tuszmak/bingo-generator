@@ -3,22 +3,34 @@ import { useUser } from '@clerk/react-router';
 import { useEffect, useState } from 'react';
 import Pack from './Pack';
 import PackCreateDialog from './PackCreateDialog';
-import { PackContent } from './types';
+import { PackContent, User } from './types';
 
 export default function Packs() {
   const [packs, setPacks] = useState<PackContent[]>([]);
-  const { user } = useUser();
+  const [user, setUser] = useState<User>();
+  const { user: clerkUser } = useUser();
   const getData = async () => {
     const response = await fetch('/api/v1/table');
     if (response.ok) {
-      const data = await response.json();
-      setPacks(data);
+      const userData = await response.json();
+      setPacks(userData);
+    }
+  };
+
+  const getUser = async () => {
+    if (clerkUser) {
+      const userResponse = await fetch(`/api/v1/users/${clerkUser.id}`);
+      if (userResponse.ok) {
+        const data = await userResponse.json();
+        setUser(data);
+      }
     }
   };
 
   useEffect(() => {
     getData();
-  }, [user]);
+    getUser();
+  }, [clerkUser]);
 
   return (
     <div>
@@ -32,7 +44,7 @@ export default function Packs() {
       <div className='flex gap-10 flex-wrap justify-center'>
         {packs.length === 0 && <div>There's no packs available</div>}
         {packs.map((pack) => (
-          <Pack pack={pack} key={pack.id} />
+          <Pack pack={pack} user={user} key={pack.id} />
         ))}
       </div>
     </div>
