@@ -3,3 +3,7 @@
   --blue-color: #3c60ff;
   --dark-blue-color: #2950ff;
 }
+
+.h-with-menubar {
+  height: 96vh;
+}

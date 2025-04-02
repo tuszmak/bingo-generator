@@ -6,7 +6,7 @@ function App() {
   return (
     <div>
       <MenuBar />
-      <div className='flex justify-center items-center h-screen'>
+      <div className='flex justify-center items-center h-with-menubar'>
         <Homepage />
       </div>
     </div>
