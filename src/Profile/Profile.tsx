@@ -8,7 +8,7 @@ export default function Profile() {
   return (
     <div>
       <MenuBar />
-      <div className='h-screen flex flex-col items-center'>
+      <div className='h-with-menubar flex flex-col items-center'>
         <div className='w-4/5 bg-slate-300 h-[180px] m-8 p-12 flex justify-between items-center'>
           <div>
             <h1 className='font-semibold text-3xl text-slate-600 uppercase'>

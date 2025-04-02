@@ -8,7 +8,7 @@ export default function Setup() {
   return (
     <div>
       <MenuBar />
-      <div className='flex flex-col gap-4 justify-center items-center h-screen'>
+      <div className='flex flex-col gap-4 justify-center items-center h-with-menubar'>
         <div>
           <h1 className='font-bold text-2xl'>Pick a word source</h1>
         </div>

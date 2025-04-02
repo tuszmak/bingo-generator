@@ -49,7 +49,7 @@ export default function PackCreateDialog({ label }: { label: string }) {
   return (
     <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
       <DialogTrigger asChild>
-        <a className='text-slate-600'> {label} </a>
+        <a className='text-slate-600 hover:text-slate-800'> {label} </a>
       </DialogTrigger>
       <form onSubmit={createPack}>
         <DialogContent className='sm:max-w-[425px]'>
