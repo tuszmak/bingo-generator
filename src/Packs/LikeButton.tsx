@@ -6,15 +6,17 @@ import {
 } from '@/components/ui/popover';
 import LikeHeartFilled from '@/logos/LikeHeartFilled';
 import { SignedIn, SignedOut, SignInButton } from '@clerk/react-router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface LikeButtonProps {
   likeCount: number;
+  isLikedByUser: boolean;
   likeCountChange: (state: boolean) => void;
 }
 
 export default function LikeButton({
   likeCount,
+  isLikedByUser,
   likeCountChange,
 }: LikeButtonProps) {
   const [isLiked, setIsLiked] = useState(false);
@@ -23,6 +25,10 @@ export default function LikeButton({
     likeCountChange(!isLiked);
     setIsLiked(!isLiked);
   };
+
+  useEffect(() => {
+    setIsLiked(isLikedByUser);
+  }, [isLikedByUser]);
 
   return (
     <div className='flex gap-2 items-center'>

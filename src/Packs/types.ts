@@ -14,3 +14,8 @@ export interface NewPack {
   uploadedByUserId: string;
   likes: string[];
 }
+
+export interface User {
+  userId: string;
+  packIds: number[];
+}
