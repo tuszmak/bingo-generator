@@ -13,13 +13,12 @@ import { useNavigate } from 'react-router';
 import LikeButton from './LikeButton';
 import { PackContent, User } from './types';
 
-export default function Pack({
-  pack,
-  user,
-}: {
+interface PackProps {
   pack: PackContent;
   user: User | undefined;
-}) {
+}
+
+export default function Pack({ pack, user }: PackProps) {
   const { code, content, name } = pack;
   const [width, setWidth] = useState(1);
   const [likeCount, setLikeCount] = useState(pack.likeCount ?? 0);
