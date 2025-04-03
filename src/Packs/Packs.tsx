@@ -1,5 +1,6 @@
+import { LoginPopover } from '@/common/LoginPopover';
 import MenuBar from '@/common/MenuBar';
-import { useUser } from '@clerk/react-router';
+import { SignedIn, SignedOut, useUser } from '@clerk/react-router';
 import { useEffect, useState } from 'react';
 import Pack from './Pack';
 import PackCreateDialog from './PackCreateDialog';
@@ -38,8 +39,19 @@ export default function Packs() {
       <MenuBar />
       <div className='flex justify-center w-full '>
         <div className=' text-3xl m-4 flex gap-1'>
-          <p>Select or </p> <PackCreateDialog label='create' />
-          <p>a pack</p>
+          <SignedIn>
+            <>
+              <p>Select or </p> <PackCreateDialog label='create' />
+              <p>a pack</p>
+            </>
+          </SignedIn>
+          <SignedOut>
+            <p>Select or </p>
+            <LoginPopover message="You can't create a pack without logging in">
+              <p className='text-slate-600 hover:text-slate-800'>create</p>
+            </LoginPopover>
+            <p>a pack</p>
+          </SignedOut>
         </div>
       </div>
       <div className='flex gap-10 flex-wrap justify-center'>
