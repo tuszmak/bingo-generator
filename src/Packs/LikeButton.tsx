@@ -1,11 +1,6 @@
-import { Button } from '@/components/ui/button';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
+import { LoginPopover } from '@/common/LoginPopover';
 import LikeHeartFilled from '@/logos/LikeHeartFilled';
-import { SignedIn, SignedOut, SignInButton } from '@clerk/react-router';
+import { SignedIn, SignedOut } from '@clerk/react-router';
 import { useEffect, useState } from 'react';
 
 interface LikeButtonProps {
@@ -49,20 +44,10 @@ export default function LikeButton({
         {likeCount}
       </SignedIn>
       <SignedOut>
-        <Popover>
-          <PopoverTrigger className='flex gap-2 items-center'>
-            <img src='src/assets/like_heart.svg' width={20} height={20}></img>
-            {likeCount}
-          </PopoverTrigger>
-          <PopoverContent>
-            <div className='flex flex-col gap-4'>
-              You need to log in, to like the pack.
-              <SignInButton mode='modal'>
-                <Button>Sign in</Button>
-              </SignInButton>
-            </div>
-          </PopoverContent>
-        </Popover>
+        <LoginPopover message='You must be logged in to like the pack.'>
+          <img src='src/assets/like_heart.svg' width={20} height={20}></img>
+          {likeCount}
+        </LoginPopover>
       </SignedOut>
     </div>
   );
