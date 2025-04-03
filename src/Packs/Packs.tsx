@@ -34,6 +34,7 @@ export default function Packs() {
 
   return (
     <div>
+      <title>Packs</title>
       <MenuBar />
       <div className='flex justify-center w-full '>
         <div className=' text-3xl m-4 flex gap-1'>

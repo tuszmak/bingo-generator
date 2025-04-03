@@ -26,6 +26,7 @@ export default function Game() {
 
   return (
     <div className='h-screen text-white dark dark:bg-slate-500'>
+      <title>Good luck!</title>
       <div>
         <Button onClick={() => navigate(-1)}>Back</Button>
       </div>
