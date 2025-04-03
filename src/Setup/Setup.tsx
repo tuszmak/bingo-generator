@@ -7,6 +7,7 @@ import { SetupTextInput } from './SetupTextInput';
 export default function Setup() {
   return (
     <div>
+      <title>Bingo Generator setup</title>
       <MenuBar />
       <div className='flex flex-col gap-4 justify-center items-center h-with-menubar'>
         <div>

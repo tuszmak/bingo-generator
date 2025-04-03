@@ -7,6 +7,7 @@ export default function Profile() {
   const { user } = useUser();
   return (
     <div>
+      <title>Your profile</title>
       <MenuBar />
       <div className='h-with-menubar flex flex-col items-center'>
         <div className='w-4/5 bg-slate-300 h-[180px] m-8 p-12 flex justify-between items-center'>
