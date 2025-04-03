@@ -44,7 +44,7 @@ export default function LikeButton({
         {likeCount}
       </SignedIn>
       <SignedOut>
-        <LoginPopover message='You need to log in, to like the pack.'>
+        <LoginPopover message='You must be logged in to like the pack.'>
           <img src='src/assets/like_heart.svg' width={20} height={20}></img>
           {likeCount}
         </LoginPopover>
