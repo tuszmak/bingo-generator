@@ -2,20 +2,27 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import PackModifyDialog from '@/Packs/PackModifyDialog';
+import { PackContent } from '@/Packs/types';
+import { EllipsisVertical } from 'lucide-react';
 
-function PackDropdown() {
+function PackDropdown({ pack }: { pack: PackContent }) {
+  const handleOpen = (e: Event) => {
+    e.preventDefault();
+  };
+
   return (
     <div className='text-2xl font-semibold'>
       <DropdownMenu>
-        <DropdownMenuTrigger>options</DropdownMenuTrigger>
+        <DropdownMenuTrigger>
+          <EllipsisVertical />
+        </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuLabel>Options</DropdownMenuLabel>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem>Modify</DropdownMenuItem>
+          <DropdownMenuItem onSelect={handleOpen}>
+            <PackModifyDialog pack={pack} />
+          </DropdownMenuItem>
           <DropdownMenuItem className='text-red-600 font-medium'>
             Delete
           </DropdownMenuItem>

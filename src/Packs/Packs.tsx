@@ -12,6 +12,8 @@ export default function Packs() {
   const { user: clerkUser } = useUser();
   const getData = async () => {
     const response = await fetch('/api/v1/table');
+    console.log(response);
+
     if (response.ok) {
       const userData = await response.json();
       setPacks(userData);

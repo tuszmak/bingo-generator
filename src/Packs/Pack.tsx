@@ -70,7 +70,7 @@ export default function Pack({ pack, user }: PackProps) {
       <Card className='w-[350px]'>
         <CardHeader className='flex-row justify-between items-baseline'>
           <CardTitle className='w-14'>{name}</CardTitle>
-          <PackDropdown></PackDropdown>
+          <PackDropdown pack={pack}></PackDropdown>
         </CardHeader>
         <CardContent>
           <form>
