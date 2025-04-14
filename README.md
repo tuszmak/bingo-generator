@@ -6,10 +6,10 @@
 
 <p align="center">
 
-  <img alt="Stars" src="https://img.shields.io/github/stars/tuszmak/bingo-generator?style=social">
+  <img alt="Stars" src="https://img.shields.io/github/stars/tuszmak/bingo-generator">
   
-  <a href="https://github.com/tuszmak/bingo-generatortuszmak/bingo-generator">
-    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/tuszmak/bingo-generatortuszmak/bingo-generator">
+  <a href="https://github.com/tuszmak/bingo-generator">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/tuszmak/bingo-generator">
   </a>
 
   <a href="https://github.com/evelinsteiger/">
