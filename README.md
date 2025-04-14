@@ -1,50 +1,123 @@
-# React + TypeScript + Vite
+<h1 align="center">
+    <img alt="project" title="#About" src="./assets/banner.jpg" />
+</h1>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<h1 align="center">
+  <a href="#"> Bingo Generator </a>
+</h1>
 
-Currently, two official plugins are available:
+<h3 align="center">Make boring events more fun!</h3>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+<p align="center">
 
-## Expanding the ESLint configuration
+  <img alt="Stars" src="https://img.shields.io/github/stars/tuszmak/bingo-generator?style=social">
+  
+  <a href="https://github.com/tuszmak/bingo-generatortuszmak/bingo-generator">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/tuszmak/bingo-generatortuszmak/bingo-generator">
+  </a>
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+  <a href="https://github.com/evelinsteiger/">
+    <img alt="made by Dániel Pintér" src="https://img.shields.io/badge/made%20by-Dániel%20Pintér-blue">
+  </a>
+</p>
 
-- Configure the top-level `parserOptions` property like this:
+<h4 align="center"> 
+	 Status: In progress
+</h4>
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-});
+<p align="center">
+ <a href="#about">About</a> •
+ <a href="#features">Features</a> •
+ <a href="#how-it-works">How it works</a> • 
+ <a href="#tech-stack">Tech Stack</a> •  
+ <a href="#What-I-learned-with-this-project">Author</a> • 
+ <a href="#user-content-license">Takeaway</a>
+</p>
+
+## About
+
+Are you aware of the "This event wasn't in my \<current year> bingo card" meme? Were you watching a showcase event, where you expected certain announcements? Me too! That's why I made this site to play with these expectations.
+
+---
+
+## Features
+
+- [x] Users are able to create and share their own packs.
+- [x] These packs are:
+  - [x] Likeable
+  - [x] All random
+  - [x] Variable sized
+
+---
+
+## How it works
+
+The project is divided into two parts:
+
+1. [Backend](https://github.com/tuszmak/bingo-generator-backend)
+2. Frontend (this repo)
+
+This repository is referring only to the Frontend part. For the backend, please visit the backend repo.
+
+### Pre-requisites
+
+If you are planning on local hosting, you will need to have the following tools installed on your machine:
+
+- Git
+- pnpm v10 (or other package manager)
+- Node v22
+
+#### Running the web application (Frontend)
+
+```bash
+
+# Clone this repository
+$ git clone git@github.com:tuszmak/bingo-generator.git
+
+# Access the project folder in your terminal
+$ cd bingo-generator
+
+# Install the dependencies
+$ pnpm i
+
+# Run the application in development mode
+$ pnpm dev
+
+# The application will open on the port: 3000 - go to http://localhost:3000
+
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+---
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react';
+## Tech Stack
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-});
-```
+The following tools were used in the construction of the project:
+
+#### **Platform** ([React](https://reactjs.org/) + [TypeScript](https://www.typescriptlang.org/))
+
+- **[React Router](https://reactrouter.com/)**
+- **[Tailwind CSS](https://v3.tailwindcss.com/)**
+- **[Shadcn UI](https://ui.shadcn.com/)**
+- **[Zod](https://zod.dev/)**
+- **[Clerk](https://clerk.com/)**
+- **[Vite](https://vite.dev/)**
+
+> See the file [package.json](https://github.com/tuszmak/bingo-generatortuszmak/bingo-generator/blob/master/package.json)
+
+## Author
+
+<a href="https://www.linkedin.com/in/pinter-daniel/">
+ <p><b>Dániel Pintér</b></p></a>
+
+## What I learned with this project
+
+This is my first time using Clerk and Shadcn UI in a project that went this far. I have a ton of ambitious ideas, but I needed to limit the scope on it to not get burnt out.
+
+## Future improvements
+
+Note, that these ideas are out of scope for me, since I want to work on other projects too. They are reminders for me, and other people on what ideas I want to implement, when I get better.
+
+- Multiplayer with Socket.io
+- Customizable table color
+- Player details for gameplay (win rate, playcount)
+- Mobile release with Expo/React Native
