@@ -4,6 +4,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import PackDeleteDialog from '@/Packs/PackDeleteDialog';
 import PackModifyDialog from '@/Packs/PackModifyDialog';
 import { PackContent } from '@/Packs/types';
 import { EllipsisVertical } from 'lucide-react';
@@ -23,8 +24,8 @@ function PackDropdown({ pack }: { pack: PackContent }) {
           <DropdownMenuItem onSelect={handleOpen}>
             <PackModifyDialog pack={pack} />
           </DropdownMenuItem>
-          <DropdownMenuItem className='text-red-600 font-medium'>
-            Delete
+          <DropdownMenuItem onSelect={handleOpen}>
+            <PackDeleteDialog pack={pack} />
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
