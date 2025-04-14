@@ -12,7 +12,7 @@
     <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/tuszmak/bingo-generator">
   </a>
 
-  <a href="https://github.com/evelinsteiger/">
+  <a href="https://github.com/tuszmak/">
     <img alt="made by Dániel Pintér" src="https://img.shields.io/badge/made%20by-Dániel%20Pintér-blue">
   </a>
 </p>
@@ -79,7 +79,7 @@ $ pnpm i
 # Run the application in development mode
 $ pnpm dev
 
-# The application will open on the port: 3000 - go to http://localhost:3000
+# The application will open on the port: 5173 - go to http://localhost:5173
 
 ```
 
@@ -98,7 +98,7 @@ The following tools were used in the construction of the project:
 - **[Clerk](https://clerk.com/)**
 - **[Vite](https://vite.dev/)**
 
-> See the file [package.json](https://github.com/tuszmak/bingo-generatortuszmak/bingo-generator/blob/master/package.json)
+> See the file [package.json](https://github.com/tuszmak/bingo-generator/blob/master/package.json)
 
 ## Author
 
