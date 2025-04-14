@@ -1,8 +1,4 @@
 <h1 align="center">
-    <img alt="project" title="#About" src="./assets/banner.jpg" />
-</h1>
-
-<h1 align="center">
   <a href="#"> Bingo Generator </a>
 </h1>
 
