@@ -1,3 +1,4 @@
+import PackDropdown from '@/common/PackDropdown';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -67,8 +68,11 @@ export default function Pack({ pack, user }: PackProps) {
   return (
     <div>
       <Card className='w-[350px]'>
-        <CardHeader>
-          <CardTitle>{name}</CardTitle>
+        <CardHeader className='flex-row justify-between items-baseline'>
+          <CardTitle className='w-14'>{name}</CardTitle>
+          {user?.userId === pack.uploadedByUserId && (
+            <PackDropdown pack={pack}></PackDropdown>
+          )}
         </CardHeader>
         <CardContent>
           <form>

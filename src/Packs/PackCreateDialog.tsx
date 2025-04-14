@@ -1,97 +1,42 @@
-import { Button } from '@/components/ui/button';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { SetupTooltip } from '@/Setup/SetupTooltip';
-import { useUser } from '@clerk/react-router';
+import PackDialog from '@/common/PackDialog';
 import { useState } from 'react';
 import { NewPack } from './types';
+import { useBuildNewPack } from './utils';
+
+interface FetchOptions {
+  onSuccess?: () => void;
+  onError?: () => void;
+}
+
+const createPack = async (
+  pack: NewPack,
+  { onSuccess, onError }: FetchOptions
+) =>
+  await fetch('/api/v1/table', {
+    method: 'post',
+    body: JSON.stringify(pack),
+    headers: { 'content-type': 'application/json' },
+  })
+    .then(onSuccess)
+    .catch(onError);
 
 export default function PackCreateDialog({ label }: { label: string }) {
-  const createPack = async () => {
-    const response = await fetch('/api/v1/table', {
-      method: 'post',
-      body: JSON.stringify(buildNewPack()),
-      headers: { 'content-type': 'application/json' },
-    });
-    if (response.ok) {
-      setDialogOpen(false);
-      window.location.reload();
-    }
-  };
+  const buildNewPack = useBuildNewPack();
 
-  const buildNewPack = (): NewPack => {
-    return {
-      name: packName ?? 'Your pack!',
-      content: wordsInput,
-      uploadedByUserId: user!.id,
-      likes: [],
-    };
-  };
-
-  const { user } = useUser();
-  const [packName, setPackName] = useState('Your pack!');
-  const [wordsInput, setWordsInput] = useState('');
   const [dialogOpen, setDialogOpen] = useState(false);
 
   return (
-    <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-      <DialogTrigger asChild>
-        <a className='text-slate-600 hover:text-slate-800'> {label} </a>
-      </DialogTrigger>
-      <form onSubmit={createPack}>
-        <DialogContent className='sm:max-w-[425px]'>
-          <DialogHeader>
-            <DialogTitle>Edit profile</DialogTitle>
-            <DialogDescription>
-              Make changes to your profile here. Click save when you're done.
-            </DialogDescription>
-          </DialogHeader>
-          <div className='grid gap-4 py-4'>
-            <div className='grid grid-cols-4 items-center gap-4'>
-              <Label htmlFor='name' className='text-right'>
-                Pack name
-              </Label>
-              <Input
-                id='name'
-                className='col-span-3'
-                value={packName}
-                required
-                name='name'
-                onChange={(e) => setPackName(e.target.value)}
-              />
-            </div>
-            <div className='grid grid-cols-4 items-center gap-4'>
-              <Label htmlFor='words'>
-                <div className='flex justify-end items-center gap-1'>
-                  Words <SetupTooltip />
-                </div>
-              </Label>
-              <Textarea
-                id='words'
-                className='col-span-3'
-                value={wordsInput}
-                name='words'
-                onChange={(e) => setWordsInput(e.target.value)}
-              />
-            </div>
-          </div>
-          <DialogFooter>
-            <Button type='submit' onClick={createPack}>
-              Create pack
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </form>
-    </Dialog>
+    <PackDialog
+      packMethod={(packName, wordsInput) =>
+        createPack(buildNewPack(packName, wordsInput), {
+          onSuccess: () => {
+            setDialogOpen(false);
+            window.location.reload();
+          },
+        })
+      }
+      buttonText='Create pack'
+      label={label}
+    ></PackDialog>
   );
 }
