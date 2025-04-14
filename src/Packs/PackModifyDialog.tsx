@@ -10,12 +10,12 @@ function PackModifyDialog({ pack }: { pack: PackContent }) {
   }
 
   const modifyPack = async (
-    pack: NewPack,
+    newPack: NewPack,
     { onSuccess, onError }: FetchOptions
   ) =>
-    await fetch('/api/v1/table/stuff', {
-      method: 'post',
-      body: JSON.stringify(pack),
+    await fetch(`/api/v1/table/${pack.id}`, {
+      method: 'PATCH',
+      body: JSON.stringify(newPack),
       headers: { 'content-type': 'application/json' },
     })
       .then(onSuccess)
