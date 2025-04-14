@@ -4,7 +4,7 @@ export interface PackContent {
   content: string;
   name: string;
   createdAt?: Date;
-  createdBy?: string;
+  uploadedByUserId?: string;
   likeCount?: number;
 }
 
