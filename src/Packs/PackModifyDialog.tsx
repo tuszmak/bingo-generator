@@ -22,7 +22,7 @@ function PackModifyDialog({ pack }: { pack: PackContent }) {
       .catch(onError);
 
   const buildNewPack = useBuildNewPack();
-  const [dialogOpen, setDialogOpen] = useState(false);
+  const [_, setDialogOpen] = useState(false);
   return (
     <div>
       <PackDialog

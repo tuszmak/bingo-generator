@@ -23,7 +23,7 @@ const createPack = async (
 export default function PackCreateDialog({ label }: { label: string }) {
   const buildNewPack = useBuildNewPack();
 
-  const [dialogOpen, setDialogOpen] = useState(false);
+  const [_, setDialogOpen] = useState(false);
 
   return (
     <PackDialog
