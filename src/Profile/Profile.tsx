@@ -10,6 +10,8 @@ import {
   useUser,
 } from '@clerk/react-router';
 import { useEffect, useState } from 'react';
+import { UserDeleteDialog } from './UserDeleteDialog';
+import UserModifyDialog from './UserModifyDialog';
 export default function Profile() {
   const { user } = useUser();
   const [userDetails, setUserDetails] = useState<User>();
@@ -49,7 +51,10 @@ export default function Profile() {
                 {user?.username ?? 'No username'}
               </p>
             </div>
-            <div></div>
+            <div className='flex flex-col gap-4'>
+              <UserModifyDialog />
+              <UserDeleteDialog />
+            </div>
           </div>
           <div className='min-h-[60vh] w-4/5 bg-slate-300 flex'>
             <div className='w-1/3 bbg-slate-300 h-full border-r-2 border-slate-600'>
