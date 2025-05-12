@@ -5,7 +5,7 @@ export const buildNewPackFactory =
   (userId: string) =>
   (packName: string, wordsInput: string): NewPack => ({
     name: packName ?? 'Your pack!',
-    content: wordsInput,
+    content: convertDataToContent(wordsInput),
     uploadedByUserId: userId,
     likes: [],
   });
@@ -15,4 +15,8 @@ export const useBuildNewPack = () => {
   if (!user) throw new Error('Cannot use component without user');
 
   return buildNewPackFactory(user.id);
+};
+
+const convertDataToContent = (words: string) => {
+  return words.replace(/\n/g, ',');
 };
