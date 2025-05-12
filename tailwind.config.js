@@ -13,6 +13,9 @@ export default {
       backgroundImage: {
         'radial-gradient': 'radial-gradient(#3C60FF, #1936B6)',
       },
+      margin: {
+        header: ' 92px',
+      },
     },
   },
   plugins: [require('tailwindcss-animate')],
