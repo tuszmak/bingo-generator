@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button';
+import clsx from 'clsx';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { GameContext } from './Contexts';
@@ -39,6 +40,7 @@ export default function Game() {
             <Button onClick={shuffleBoard}>Shuffle Board</Button>
           </div>
         )}
+        <div className={clsx(!isFinished && 'mt-header')}></div>
         <GameContext.Provider value={{ board, setBoard, setIsFinished }}>
           <Table />
         </GameContext.Provider>

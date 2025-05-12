@@ -19,9 +19,7 @@ export default function Block({ word, rowNum, colNum }: BlockProps) {
     const boardCopy = structuredClone(board);
     boardCopy[rowNum][colNum].isClicked = !board[rowNum][colNum].isClicked;
 
-    if (checkTableSolve(boardCopy, rowNum, colNum)) {
-      setIsFinished(true);
-    }
+    setIsFinished(checkTableSolve(boardCopy, rowNum, colNum));
     setBoard(boardCopy);
   };
 
