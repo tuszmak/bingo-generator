@@ -10,7 +10,7 @@ interface BlockProps {
 }
 
 const defaultClassList =
-  'w-28 h-28 flex justify-center items-center border border-white break-all text-center p-2';
+  'w-36 h-36 flex justify-center items-center border border-white break-all text-center p-2 overflow-auto';
 
 export default function Block({ word, rowNum, colNum }: BlockProps) {
   const { board, setBoard, setIsFinished } = useContext(GameContext);
