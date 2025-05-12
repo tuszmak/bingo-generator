@@ -8,9 +8,14 @@ export default function Homepage() {
         The only bingo generator you'll ever need.
       </p>
 
-      <a href='/setup'>
-        <Button>Get Started</Button>
-      </a>
+      <div className='flex gap-4'>
+        <a href='/setup'>
+          <Button>Get Started</Button>
+        </a>
+        <a href='/packs'>
+          <Button>View packs</Button>
+        </a>
+      </div>
     </div>
   );
 }
