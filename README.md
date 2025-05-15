@@ -18,7 +18,7 @@
 </p>
 
 <h4 align="center"> 
-	 Status: In progress
+	 Status: Finished, in maintanence mode
 </h4>
 
 <p align="center">
